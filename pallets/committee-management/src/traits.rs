@@ -43,7 +43,7 @@ where
 
     fn elected_validators(era: EraIndex) -> Vec<Self::AccountId> {
         pallet_staking::ErasStakers::<T>::iter_key_prefix(era)
-            .chain(pallet_staking::ErasStakersOverview::<T>::iter_key_prefix(
+            .chain(pallet_staking::ErasStakers::<T>::iter_key_prefix(
                 era,
             ))
             .collect()
@@ -68,7 +68,7 @@ where
         pallet_staking::ErasStakers::<T>::iter_prefix(era)
             .map(|(validator, exposure)| (validator, exposure.total.into()))
             .chain(
-                pallet_staking::ErasStakersOverview::<T>::iter_prefix(era)
+                pallet_staking::ErasStakers::<T>::iter_prefix(era)
                     .map(|(validator, overview)| (validator, overview.total.into())),
             )
             .collect()
